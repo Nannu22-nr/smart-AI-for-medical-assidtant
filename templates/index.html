@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical AI - Advanced Medical Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Advanced AI medical assistant with medical image analysis, symptom analysis, and personalized healthcare solutions">
+    <meta name="keywords" content="AI medical assistant, medical image analysis, X-ray analysis, MRI analysis, symptom analysis, healthcare AI">
+</head>
+<body data-theme="dark">
+    <div class="app">
+        <!-- Navigation -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <i class="fas fa-brain" aria-hidden="true"></i>
+                    <span>Smart AI</span>
+                </div>
+                <div class="nav-items">
+                    <button class="nav-item active" onclick="showSection('home')" aria-label="Home">
+                        <i class="fas fa-home" aria-hidden="true"></i> Home
+                    </button>
+                    <button class="nav-item" onclick="showSection('chat')" aria-label="AI Chat">
+                        <i class="fas fa-comments" aria-hidden="true"></i> Chat
+                    </button>
+                    <button class="nav-item" onclick="showSection('symptoms')" aria-label="Symptom Analyzer">
+                        <i class="fas fa-stethoscope" aria-hidden="true"></i> Symptoms
+                    </button>
+                    <button class="nav-item" onclick="showSection('medical-image')" aria-label="Medical Image Analysis">
+                        <i class="fas fa-x-ray" aria-hidden="true"></i> X-Ray/MRI/CT
+                    </button>
+                    <button class="nav-item" onclick="showSection('nutrition')" aria-label="Nutrition Planner">
+                        <i class="fas fa-apple-alt" aria-hidden="true"></i> Nutrition
+                    </button>
+                    <button class="nav-item" onclick="showSection('drugs')" aria-label="Drug Interactions">
+                        <i class="fas fa-pills" aria-hidden="true"></i> Drugs
+                    </button>
+                    <button class="nav-item" onclick="showSection('health-records')" aria-label="Health Records">
+                        <i class="fas fa-file-medical" aria-hidden="true"></i> Records
+                    </button>
+                    <button class="nav-item" onclick="showSection('risk-assessment')" aria-label="Risk Assessment">
+                        <i class="fas fa-heart-pulse" aria-hidden="true"></i> Risk Check
+                    </button>
+                    <button class="nav-item" onclick="showSection('contact')" aria-label="Contact">
+                        <i class="fas fa-address-card" aria-hidden="true"></i> Contact
+                    </button>
+                </div>
+                <div class="nav-controls">
+                    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                        <i class="fas fa-sun" aria-hidden="true"></i>
+                    </button>
+                    <button id="menuToggle" class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                        <i class="fas fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main" role="main">
+            <header class="page-header">
+                <h1 id="pageTitle">Smart AI - Advanced Medical Assistant</h1>
+                <div id="sessionInfo" class="session-info" style="display:none;">
+                    <span id="sessionStats"></span>
+                </div>
+            </header>
+
+            <!-- Home Section -->
+            <section id="home-section" class="hero-section" aria-live="polite">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2 class="hero-title">Intelligent <span class="hero-subtitle">Healthcare Solutions</span></h2>
+                        <p class="hero-description">Advanced medical AI with medical image analysis (X-ray, MRI, CT), symptom analysis, drug interaction checking, health record analysis, risk assessment, and personalized nutrition planning.</p>
+                        <div class="cta-buttons">
+                            <button class="cta-button primary" onclick="showSection('chat')">
+                                <i class="fas fa-comments" aria-hidden="true"></i> Start Consultation
+                            </button>
+                            <button class="cta-button secondary" onclick="showSection('medical-image')">
+                                <i class="fas fa-x-ray" aria-hidden="true"></i> Analyze Medical Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-section">
+                    <h3>Advanced AI Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-x-ray" aria-hidden="true"></i></div>
+                            <h4>Medical Image Analysis</h4>
+                            <p>AI-powered analysis of X-rays, MRI scans, and CT scans using Google Gemini Vision API.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-stethoscope" aria-hidden="true"></i></div>
+                            <h4>AI Diagnostics</h4>
+                            <p>Advanced symptom analysis with severity assessment, possible conditions, and medical recommendations.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-pills" aria-hidden="true"></i></div>
+                            <h4>Drug Interactions</h4>
+                            <p>Comprehensive medication interaction checking with safety alerts and timing recommendations.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-file-medical" aria-hidden="true"></i></div>
+                            <h4>Health Record Analysis</h4>
+                            <p>Upload and analyze medical reports, lab results, and prescriptions with AI interpretation.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-heart-pulse" aria-hidden="true"></i></div>
+                            <h4>Risk Assessment</h4>
+                            <p>Evaluate your risk for diabetes, heart disease, and kidney conditions with personalized tips.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-utensils" aria-hidden="true"></i></div>
+                            <h4>Smart Nutrition</h4>
+                            <p>AI-powered meal plans with recipes, macronutrient breakdown, and shopping lists.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <h3>Powered By</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">Gemini 1.5 Pro</div>
+                            <div class="stat-label">AI Model</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">Vision API</div>
+                            <div class="stat-label">Image Analysis</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Availability</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">Privacy</div>
+                            <div class="stat-label">First</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Section -->
+            <section id="chat-section" class="chat-container" style="display:none;" aria-live="polite">
+                <div class="chat-header">
+                    <div class="chat-controls">
+                        <select id="chatMode" class="chat-mode-selector" aria-label="Chat mode">
+                            <option value="normal">Normal Chat</option>
+                            <option value="detailed">Detailed Analysis</option>
+                            <option value="quick">Quick Response</option>
+                        </select>
+                        <button onclick="exportChat()" class="control-btn" title="Export Chat" aria-label="Export chat">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                        </button>
+                        <button onclick="showChatStats()" class="control-btn" title="Chat Statistics" aria-label="Show statistics">
+                            <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                        </button>
+                        <button onclick="clearChat()" class="control-btn danger" title="Clear Chat" aria-label="Clear chat">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="chatWindow" class="chat-window" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+                
+                <div class="chat-composer">
+                    <div class="input-container">
+                        <textarea id="msgInput" placeholder="Describe your symptoms or ask a medical question..." 
+                               aria-label="Chat message input" autocomplete="off" maxlength="2000" rows="1"></textarea>
+                        <button onclick="submitMessage()" class="send-btn" aria-label="Send message">
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="chat-suggestions" id="chatSuggestions">
+                        <button onclick="insertSuggestion('I have a headache and fever for 2 days')" class="suggestion-btn">Headache & Fever</button>
+                        <button onclick="insertSuggestion('What should I eat for weight loss?')" class="suggestion-btn">Weight Loss Diet</button>
+                        <button onclick="insertSuggestion('Can I take ibuprofen with my blood pressure medication?')" class="suggestion-btn">Drug Interactions</button>
+                        <button onclick="insertSuggestion('How do I upload medical images for analysis?')" class="suggestion-btn">Image Analysis Help</button>
+                        <button onclick="insertSuggestion('What are the symptoms of diabetes?')" class="suggestion-btn">Diabetes Symptoms</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Medical Image Analysis Section -->
+            <section id="medical-image-section" class="medical-image-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-x-ray"></i> Medical Image Analysis (X-Ray, MRI, CT)</h3>
+                
+                <div class="warning-banner critical">
+                    <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                    <span><strong>Important:</strong> This AI analysis is for informational purposes only. All medical images must be reviewed by a qualified radiologist or healthcare provider for definitive diagnosis.</span>
+                </div>
+
+                <div class="image-analysis-container">
+                    <div class="upload-section">
+                        <form class="medical-image-form" onsubmit="analyzeMedicalImage(event)">
+                            <div class="file-upload-area" id="medicalImageUploadArea">
+                                <input type="file" id="medicalImageFile" accept="image/*" style="display: none;" onchange="handleMedicalImageSelect(event)">
+                                <div class="upload-content" id="medicalUploadContent">
+                                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                    <h4>Upload Medical Image</h4>
+                                    <p>Drag & drop your X-ray, MRI, or CT scan image here or click to browse</p>
+                                    <p class="file-info">Supported formats: PNG, JPG, JPEG, GIF, BMP, TIFF (Max: 16MB)</p>
+                                    <button type="button" onclick="document.getElementById('medicalImageFile').click()" class="browse-btn">
+                                        <i class="fas fa-folder-open" aria-hidden="true"></i> Browse Files
+                                    </button>
+                                </div>
+                                <div class="file-preview" id="medicalImagePreview" style="display: none;">
+                                    <img id="medicalPreviewImage" alt="Medical image preview">
+                                    <div class="file-details">
+                                        <p id="medicalFileName"></p>
+                                        <p id="medicalFileSize"></p>
+                                        <button type="button" onclick="removeMedicalImage()" class="remove-btn">
+                                            <i class="fas fa-times" aria-hidden="true"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-options">
+                                <h4>Image Type</h4>
+                                <div class="option-grid">
+                                    <label class="option-item">
+                                        <input type="radio" name="imageType" value="xray" checked>
+                                        <span class="checkmark"></span> X-Ray
+                                    </label>
+                                    <label class="option-item">
+                                        <input type="radio" name="imageType" value="mri">
+                                        <span class="checkmark"></span> MRI Scan
+                                    </label>
+                                    <label class="option-item">
+                                        <input type="radio" name="imageType" value="ct">
+                                        <span class="checkmark"></span> CT Scan
+                                    </label>
+                                    <label class="option-item">
+                                        <input type="radio" name="imageType" value="ultrasound">
+                                        <span class="checkmark"></span> Ultrasound
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-options">
+                                <h4>Analysis Options</h4>
+                                <div class="option-grid">
+                                    <label class="option-item">
+                                        <input type="checkbox" id="detailedImageAnalysis" checked>
+                                        <span class="checkmark"></span> Detailed Analysis
+                                    </label>
+                                    <label class="option-item">
+                                        <input type="checkbox" id="includeRecommendations" checked>
+                                        <span class="checkmark"></span> Include Recommendations
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="analyze-btn" id="analyzeImageBtn" disabled>
+                                <i class="fas fa-search" aria-hidden="true"></i> Analyze Medical Image
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="model-status" id="geminiModelStatus">
+                        <h4>AI Model Status</h4>
+                        <div class="status-loading">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Checking Gemini API status...
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="medical-image-result" class="result-container" aria-live="assertive"></div>
+            </section>
+
+            <!-- Symptom Analyzer Section -->
+            <section id="symptoms-section" class="analyzer-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-stethoscope" aria-hidden="true"></i> Advanced Symptom Analyzer</h3>
+                <form class="symptom-form" onsubmit="analyzeSymptoms(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="symptoms">Describe your symptoms in detail:</label>
+                            <textarea id="symptoms" required rows="4" placeholder="E.g., severe headache in the front of my head, nausea, sensitivity to light, started this morning..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="symptomDuration">Duration:</label>
+                                <select id="symptomDuration" required>
+                                    <option value="">Select duration</option>
+                                    <option value="less than 1 hour">Less than 1 hour</option>
+                                    <option value="1-6 hours">1-6 hours</option>
+                                    <option value="6-24 hours">6-24 hours</option>
+                                    <option value="1-3 days">1-3 days</option>
+                                    <option value="4-7 days">4-7 days</option>
+                                    <option value="1-2 weeks">1-2 weeks</option>
+                                    <option value="more than 2 weeks">More than 2 weeks</option>
+                                    <option value="chronic (months/years)">Chronic (months/years)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="symptomSeverity">Pain/Discomfort Level (1-10):</label>
+                                <div class="severity-container">
+                                    <input type="range" id="symptomSeverity" min="1" max="10" value="5">
+                                    <span id="severityValue" class="severity-display">5</span>
+                                </div>
+                                <div class="severity-labels">
+                                    <span>Mild</span>
+                                    <span>Severe</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientAge">Age:</label>
+                                <input type="number" id="patientAge" min="1" max="120" placeholder="Enter age">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="patientGender">Gender:</label>
+                                <select id="patientGender">
+                                    <option value="">Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Information (optional):</label>
+                            <textarea id="additionalInfo" rows="2" placeholder="Any relevant medical history, medications, allergies, or triggers..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="analyze-btn">
+                        <i class="fas fa-search" aria-hidden="true"></i> Analyze Symptoms
+                    </button>
+                </form>
+                
+                <div id="symptom-result" class="result-container" aria-live="assertive"></div>
+            </section>
+
+            <!-- Health Records Section -->
+            <section id="health-records-section" class="health-records-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-file-medical" aria-hidden="true"></i> Health Record Analyzer</h3>
+                
+                <div class="warning-banner">
+                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                    <span>Your health records are processed securely and are not stored permanently on our servers.</span>
+                </div>
+
+                <div class="upload-container">
+                    <form class="health-record-form" onsubmit="uploadHealthRecord(event)">
+                        <div class="file-upload-section">
+                            <h4>Upload Health Documents</h4>
+                            <div class="upload-area" id="healthRecordUploadArea">
+                                <input type="file" id="healthRecordFile" accept=".pdf,.csv" style="display: none;" onchange="handleHealthRecordSelect(event)">
+                                <div class="upload-placeholder" id="healthUploadPlaceholder">
+                                    <i class="fas fa-file-upload" aria-hidden="true"></i>
+                                    <h5>Upload Medical Reports</h5>
+                                    <p>Drag & drop your medical reports here or click to browse</p>
+                                    <p class="file-types">Supported: PDF (lab reports, prescriptions) or CSV (health data)</p>
+                                    <button type="button" onclick="document.getElementById('healthRecordFile').click()" class="upload-btn">
+                                        <i class="fas fa-folder-open" aria-hidden="true"></i> Browse Files
+                                    </button>
+                                </div>
+                                <div class="file-display" id="healthFileDisplay" style="display: none;">
+                                    <div class="file-icon">
+                                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="file-info">
+                                        <p id="healthFileName"></p>
+                                        <p id="healthFileSize"></p>
+                                    </div>
+                                    <button type="button" onclick="removeHealthFile()" class="remove-file-btn">
+                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-type">
+                            <h4>Analysis Type</h4>
+                            <div class="analysis-options">
+                                <label class="analysis-option">
+                                    <input type="radio" name="analysisType" value="lab_results" checked>
+                                    <span class="radio-custom"></span> Lab Results & Blood Tests
+                                </label>
+                                <label class="analysis-option">
+                                    <input type="radio" name="analysisType" value="prescription">
+                                    <span class="radio-custom"></span> Prescription Analysis
+                                </label>
+                                <label class="analysis-option">
+                                    <input type="radio" name="analysisType" value="health_data">
+                                    <span class="radio-custom"></span> General Health Data
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="analyze-record-btn" id="analyzeRecordBtn" disabled>
+                            <i class="fas fa-analytics" aria-hidden="true"></i> Analyze Health Record
+                        </button>
+                    </form>
+                </div>
+
+                <div id="health-record-result" class="result-container" aria-live="assertive"></div>
+            </section>
+
+            <!-- Risk Assessment Section -->
+            <section id="risk-assessment-section" class="risk-assessment-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-heart-pulse" aria-hidden="true"></i> Health Risk Assessment</h3>
+                
+                <div class="risk-tabs">
+                    <button class="risk-tab active" onclick="showRiskTab('diabetes')" data-risk="diabetes">
+                        <i class="fas fa-vial" aria-hidden="true"></i> Diabetes Risk
+                    </button>
+                    <button class="risk-tab" onclick="showRiskTab('heart')" data-risk="heart">
+                        <i class="fas fa-heartbeat" aria-hidden="true"></i> Heart Disease
+                    </button>
+                    <button class="risk-tab" onclick="showRiskTab('kidney')" data-risk="kidney">
+                        <i class="fas fa-kidney" aria-hidden="true"></i> Kidney Disease
+                    </button>
+                </div>
+
+                <!-- Diabetes Risk Form -->
+                <div id="diabetes-risk" class="risk-form active">
+                    <h4>Diabetes Risk Assessment</h4>
+                    <form onsubmit="assessRisk(event, 'diabetes')">
+                        <div class="form-grid">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="diabetesAge">Age:</label>
+                                    <input type="number" id="diabetesAge" min="18" max="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diabetesGender">Gender:</label>
+                                    <select id="diabetesGender" required>
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diabetesBMI">BMI:</label>
+                                    <input type="number" id="diabetesBMI" step="0.1" min="10" max="50" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="waistCircumference">Waist Circumference (cm):</label>
+                                    <input type="number" id="waistCircumference" min="50" max="200">
+                                </div>
+                                <div class="form-group">
+                                    <label>Physical Activity (≥30 min/day):</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="physicalActivity" value="true"> Yes</label>
+                                        <label><input type="radio" name="physicalActivity" value="false"> No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="dailyVeggies">
+                                    <span class="checkmark"></span> I eat vegetables or fruits daily
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="hypertensionMed">
+                                    <span class="checkmark"></span> Taking medication for high blood pressure
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="highBloodSugar">
+                                    <span class="checkmark"></span> History of high blood sugar
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="familyDiabetes">
+                                    <span class="checkmark"></span> Family history of diabetes
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="assess-btn">
+                            <i class="fas fa-calculator" aria-hidden="true"></i> Calculate Diabetes Risk
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Heart Disease Risk Form -->
+                <div id="heart-risk" class="risk-form">
+                    <h4>Heart Disease Risk Assessment</h4>
+                    <form onsubmit="assessRisk(event, 'heart')">
+                        <div class="form-grid">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="heartAge">Age:</label>
+                                    <input type="number" id="heartAge" min="18" max="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="heartGender">Gender:</label>
+                                    <select id="heartGender" required>
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="totalCholesterol">Total Cholesterol (mg/dL):</label>
+                                    <input type="number" id="totalCholesterol" min="100" max="400">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hdlCholesterol">HDL Cholesterol (mg/dL):</label>
+                                    <input type="number" id="hdlCholesterol" min="20" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="systolicBP">Systolic Blood Pressure:</label>
+                                    <input type="number" id="systolicBP" min="80" max="200">
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="smoker">
+                                    <span class="checkmark"></span> Current smoker
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="heartDiabetes">
+                                    <span class="checkmark"></span> Have diabetes
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="treatedHypertension">
+                                    <span class="checkmark"></span> Taking blood pressure medication
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="assess-btn">
+                            <i class="fas fa-heart" aria-hidden="true"></i> Calculate Heart Risk
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Kidney Disease Risk Form -->
+                <div id="kidney-risk" class="risk-form">
+                    <h4>Kidney Disease Risk Assessment</h4>
+                    <form onsubmit="assessRisk(event, 'kidney')">
+                        <div class="form-grid">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="kidneyAge">Age:</label>
+                                    <input type="number" id="kidneyAge" min="18" max="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kidneyGender">Gender:</label>
+                                    <select id="kidneyGender" required>
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kidneyBMI">BMI:</label>
+                                    <input type="number" id="kidneyBMI" step="0.1" min="10" max="50" required>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="kidneyHypertension">
+                                    <span class="checkmark"></span> Have high blood pressure
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="kidneyDiabetes">
+                                    <span class="checkmark"></span> Have diabetes
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="kidneySmoker">
+                                    <span class="checkmark"></span> Current smoker
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="anemia">
+                                    <span class="checkmark"></span> Have anemia
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="proteinuria">
+                                    <span class="checkmark"></span> Protein in urine (proteinuria)
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="assess-btn">
+                            <i class="fas fa-kidney" aria-hidden="true"></i> Calculate Kidney Risk
+                        </button>
+                    </form>
+                </div>
+
+                <div id="risk-assessment-result" class="result-container" aria-live="assertive"></div>
+            </section>
+
+            <!-- Nutrition Section -->
+            <section id="nutrition-section" class="nutrition-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-apple-alt" aria-hidden="true"></i> Personalized Nutrition Planner</h3>
+                <form class="nutrition-form" onsubmit="generatePlan(event)">
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input type="number" id="age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (kg):</label>
+                                <input type="number" id="weight" step="0.1" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Height (cm):</label>
+                                <input type="number" id="height" min="1" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="goal">Primary Goal:</label>
+                                <select id="goal" required>
+                                    <option value="">Select your goal</option>
+                                    <option value="lose weight">Lose Weight</option>
+                                    <option value="gain weight">Gain Weight</option>
+                                    <option value="maintain weight">Maintain Weight</option>
+                                    <option value="build muscle">Build Muscle</option>
+                                    <option value="improve energy">Improve Energy</option>
+                                    <option value="manage diabetes">Manage Diabetes</option>
+                                    <option value="heart healthy">Heart Healthy Diet</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="activityLevel">Activity Level:</label>
+                                <select id="activityLevel">
+                                    <option value="sedentary">Sedentary (desk job, no exercise)</option>
+                                    <option value="light">Light Activity (1-3 days/week)</option>
+                                    <option value="moderate">Moderate Activity (3-5 days/week)</option>
+                                    <option value="active">Very Active (6-7 days/week)</option>
+                                    <option value="extreme">Extremely Active (2x/day, intense)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Plan Duration:</label>
+                                <select id="duration" required>
+                                    <option value="">Select duration</option>
+                                    <option value="1 week">1 Week</option>
+                                    <option value="2 weeks">2 Weeks</option>
+                                    <option value="1 month">1 Month</option>
+                                    <option value="3 months">3 Months</option>
+                                    <option value="6 months">6 Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dietaryRestrictions">Dietary Restrictions & Preferences:</label>
+                            <input type="text" id="dietaryRestrictions" placeholder="E.g., vegetarian, vegan, gluten-free, lactose intolerant, nut allergies, keto, paleo...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medicalConditions">Medical Conditions:</label>
+                            <input type="text" id="medicalConditions" placeholder="E.g., diabetes, hypertension, heart disease, kidney disease, PCOS...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foodPreferences">Food Preferences & Dislikes:</label>
+                            <textarea id="foodPreferences" rows="2" placeholder="Foods you love, hate, or want to include/avoid..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="generate-btn">
+                        <i class="fas fa-utensils" aria-hidden="true"></i> Generate Nutrition Plan
+                    </button>
+                </form>
+                
+                <div id="nutrition-result" class="result-container" aria-live="assertive"></div>
+            </section>
+
+            <!-- Drug Interaction Section -->
+            <section id="drugs-section" class="drugs-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-pills" aria-hidden="true"></i> Drug Interaction Checker</h3>
+                <div class="drugs-container">
+                    <div class="warning-banner">
+                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                        <span>This tool provides general information only. Always consult your pharmacist or doctor for medical advice.</span>
+                    </div>
+                    
+                    <form class="drugs-form" onsubmit="checkDrugInteractions(event)">
+                        <div class="form-group">
+                            <label for="medications">List your medications and supplements:</label>
+                            <textarea id="medications" required rows="8" 
+                                      placeholder="Enter each medication on a new line with dosage and frequency:
+
+Example:
+• Lisinopril 10mg once daily (for blood pressure)
+• Metformin 500mg twice daily (for diabetes) 
+• Ibuprofen 400mg as needed (for pain)
+• Vitamin D3 1000IU daily
+• Fish Oil 1000mg daily
+• Aspirin 81mg daily (baby aspirin)"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="drugAllergies">Known Drug Allergies (optional):</label>
+                            <input type="text" id="drugAllergies" placeholder="E.g., penicillin, sulfa drugs, aspirin...">
+                        </div>
+                        
+                        <button type="submit" class="check-btn">
+                            <i class="fas fa-search" aria-hidden="true"></i> Check Interactions
+                        </button>
+                    </form>
+                    
+                    <div id="drug-result" class="result-container" aria-live="assertive"></div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact-section" class="contact-section" style="display:none;" aria-live="polite">
+                <h3><i class="fas fa-address-card" aria-hidden="true"></i> Contact the Developer</h3>
+                <div class="developer-info">
+                    <div class="developer-card">
+                        <img src="{{ url_for('static', filename='Ohidul Alam.jpg') }}" alt="Developer Ohidul Alam" class="developer-image">
+                        <div class="developer-details">
+                            <h4>Ohidul Alam Nannu and team mates</h4>
+                            <p class="developer-title">AI & Healthcare Technology Specialist</p>
+                            <div class="bio-text">
+                                <p>Passionate AI developer specializing in healthcare applications, machine learning, and data-driven solutions. Creating intelligent systems that bridge technology and healthcare to improve lives globally.</p>
+                                <p>Expertise in medical AI, medical image analysis, drug interaction analysis, health risk assessment, and sustainable business strategies through advanced artificial intelligence.</p>
+                            </div>
+                            <div class="contact-links">
+                                <a href="https://www.facebook.com/share/1FQdkh5dAi/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                                    <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
+                                </a>
+                                <a href="https://www.linkedin.com/in/ohidul-alam-54123a287" target="_blank" rel="noopener noreferrer" class="contact-link">
+                                    <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+                                </a>
+                                <div class="contact-item">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: +8801771490287
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fab fa-telegram" aria-hidden="true"></i> Telegram: +8801771490287
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h4>Processing...</h4>
+                <p id="loadingMessage">Please wait while we analyze your data</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let chatMode = 'normal';
+        let selectedMedicalImage = null;
+        let selectedHealthRecord = null;
+        let currentRiskType = 'diabetes';
+        
+        // DOM elements
+        const sections = {
+            home: document.getElementById("home-section"),
+            chat: document.getElementById("chat-section"),
+            symptoms: document.getElementById("symptoms-section"),
+            'medical-image': document.getElementById("medical-image-section"),
+            'health-records': document.getElementById("health-records-section"),
+            'risk-assessment': document.getElementById("risk-assessment-section"),
+            nutrition: document.getElementById("nutrition-section"),
+            drugs: document.getElementById("drugs-section"),
+            contact: document.getElementById("contact-section")
+        };
+        
+        const chatWindow = document.getElementById("chatWindow");
+        const msgInput = document.getElementById("msgInput");
+        const pageTitle = document.getElementById("pageTitle");
+        const sessionInfo = document.getElementById("sessionInfo");
+        const sessionStats = document.getElementById("sessionStats");
+
+        // Initialize app
+        window.addEventListener("load", () => {
+            showSection('home');
+            initializeSession();
+            setupEventListeners();
+            checkGeminiModelStatus();
+            setupDragAndDrop();
+            initializeTheme();
+        });
+
+        // Initialize theme
+        function initializeTheme() {
+            document.body.setAttribute('data-theme', currentTheme);
+            const themeIcon = document.querySelector('#themeToggle i');
+            if (themeIcon) {
+                themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById("chatMode").addEventListener("change", (e) => {
+                chatMode = e.target.value;
+            });
+            
+            const severitySlider = document.getElementById("symptomSeverity");
+            if (severitySlider) {
+                severitySlider.addEventListener("input", (e) => {
+                    document.getElementById("severityValue").textContent = e.target.value;
+                });
+            }
+            
+            msgInput.addEventListener("input", function() {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            });
+            
+            msgInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    submitMessage();
+                }
+            });
+        }
+
+        // Setup drag and drop
+        function setupDragAndDrop() {
+            const medicalUploadArea = document.getElementById('medicalImageUploadArea');
+            const healthUploadArea = document.getElementById('healthRecordUploadArea');
+            
+            if (medicalUploadArea) {
+                setupDragDropForElement(medicalUploadArea, handleMedicalImageSelect);
+            }
+            
+            if (healthUploadArea) {
+                setupDragDropForElement(healthUploadArea, handleHealthRecordSelect);
+            }
+        }
+
+        function setupDragDropForElement(element, handler) {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                element.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                element.addEventListener(eventName, () => element.classList.add('dragover'), false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                element.addEventListener(eventName, () => element.classList.remove('dragover'), false);
+            });
+            
+            element.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length > 0) {
+                    handler({ target: { files: files } });
+                }
+            }, false);
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Check Gemini API status
+        async function checkGeminiModelStatus() {
+            try {
+                const response = await fetch("/model_status");
+                const data = await response.json();
+                
+                const statusDiv = document.getElementById("geminiModelStatus");
+                if (statusDiv) {
+                    if (data.gemini_llm) {
+                        statusDiv.innerHTML = `
+                            <h4>AI Model Status</h4>
+                            <div class="status-success">
+                                <i class="fas fa-check-circle"></i> Gemini AI: Active
+                            </div>
+                            <div class="model-details">
+                                <p><strong>Model:</strong> ${data.model_name}</p>
+                                <p><strong>Vision Model:</strong> ${data.vision_model_name}</p>
+                                <p><strong>Supported formats:</strong> ${data.supported_formats.join(', ')}</p>
+                                <p><strong>Max file size:</strong> ${data.max_file_size_mb}MB</p>
+                            </div>
+                        `;
+                    } else {
+                        statusDiv.innerHTML = `
+                            <h4>AI Model Status</h4>
+                            <div class="status-error">
+                                <i class="fas fa-exclamation-circle"></i> Gemini API: Not Configured
+                            </div>
+                            <p>Please set GEMINI_API_KEY in environment variables.</p>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error("Model status check failed:", error);
+                const statusDiv = document.getElementById("geminiModelStatus");
+                if (statusDiv) {
+                    statusDiv.innerHTML = `
+                        <h4>AI Model Status</h4>
+                        <div class="status-error">
+                            <i class="fas fa-exclamation-circle"></i> Status check failed
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Medical Image Analysis Functions
+        function handleMedicalImageSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/tiff'];
+            if (!allowedTypes.includes(file.type)) {
+                showAlert('Please select a valid image file (PNG, JPG, JPEG, GIF, BMP, or TIFF).', 'error');
+                return;
+            }
+            
+            if (file.size > 16 * 1024 * 1024) {
+                showAlert('File size must be less than 16MB.', 'error');
+                return;
+            }
+            
+            selectedMedicalImage = file;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('medicalUploadContent').style.display = 'none';
+                document.getElementById('medicalImagePreview').style.display = 'block';
+                document.getElementById('medicalPreviewImage').src = e.target.result;
+                document.getElementById('medicalFileName').textContent = file.name;
+                document.getElementById('medicalFileSize').textContent = `Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                document.getElementById('analyzeImageBtn').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeMedicalImage() {
+            selectedMedicalImage = null;
+            document.getElementById('medicalUploadContent').style.display = 'block';
+            document.getElementById('medicalImagePreview').style.display = 'none';
+            document.getElementById('medicalImageFile').value = '';
+            document.getElementById('analyzeImageBtn').disabled = true;
+        }
+
+        async function analyzeMedicalImage(event) {
+            event.preventDefault();
+            
+            if (!selectedMedicalImage) {
+                showAlert('Please select a medical image first.', 'error');
+                return;
+            }
+            
+            const resultDiv = document.getElementById("medical-image-result");
+            const analyzeBtn = document.getElementById("analyzeImageBtn");
+            const imageType = document.querySelector('input[name="imageType"]:checked').value;
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            
+            showLoading(`Analyzing ${imageType.toUpperCase()} image with Gemini AI...`);
+            
+            resultDiv.innerHTML = `
+                <div class="loading-analysis">
+                    <div class="loading-icon">
+                        <i class="fas fa-brain fa-pulse"></i>
+                    </div>
+                    <h4>AI Analysis in Progress</h4>
+                    <p>Analyzing medical image with Google Gemini AI...</p>
+                    <div class="progress-steps">
+                        <div class="step active">Processing Image</div>
+                        <div class="step">AI Analysis</div>
+                        <div class="step">Generating Report</div>
+                    </div>
+                </div>
+            `;
+            
+            try {
+                const formData = new FormData();
+                formData.append('image', selectedMedicalImage);
+                formData.append('image_type', imageType);
+                
+                const response = await fetch("/analyze_medical_image", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    displayMedicalImageResults(result, imageType);
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error-result">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4>Analysis Failed</h4>
+                            <p>${result.reply}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error-result">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h4>Network Error</h4>
+                        <p>Failed to analyze medical image. Please check your connection and try again.</p>
+                    </div>
+                `;
+                console.error("Medical image analysis error:", error);
+            } finally {
+                hideLoading();
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<i class="fas fa-search"></i> Analyze Medical Image';
+            }
+        }
+
+        function displayMedicalImageResults(result, imageType) {
+            const resultDiv = document.getElementById("medical-image-result");
+            const analysis = result.analysis;
+            
+            resultDiv.innerHTML = `
+                <div class="medical-image-results">
+                    <div class="result-header">
+                        <i class="fas fa-x-ray"></i>
+                        <h4>${imageType.toUpperCase()} Analysis Results</h4>
+                        <p class="timestamp">Analysis completed at ${new Date(result.timestamp).toLocaleString()}</p>
+                        <p class="model-info">Model: ${result.model_used}</p>
+                    </div>
+                    
+                    <div class="analysis-content">
+                        ${formatAnalysisResult(analysis)}
+                    </div>
+                    
+                    <div class="disclaimer">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Important Disclaimer:</strong> ${result.disclaimer}</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button onclick="exportMedicalImageResults()" class="export-btn">
+                            <i class="fas fa-download"></i> Export Results
+                        </button>
+                        <button onclick="showSection('chat')" class="consult-btn">
+                            <i class="fas fa-comments"></i> Discuss Results
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function exportMedicalImageResults() {
+            const resultDiv = document.getElementById("medical-image-result");
+            const resultText = resultDiv.textContent;
+            
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `medical-image-analysis-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Health Record Functions
+        function handleHealthRecordSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const allowedTypes = ['application/pdf', 'text/csv'];
+            if (!allowedTypes.includes(file.type)) {
+                showAlert('Please select a valid file (PDF or CSV only).', 'error');
+                return;
+            }
+            
+            if (file.size > 16 * 1024 * 1024) {
+                showAlert('File size must be less than 16MB.', 'error');
+                return;
+            }
+            
+            selectedHealthRecord = file;
+            
+            document.getElementById('healthUploadPlaceholder').style.display = 'none';
+            document.getElementById('healthFileDisplay').style.display = 'flex';
+            document.getElementById('healthFileName').textContent = file.name;
+            document.getElementById('healthFileSize').textContent = `Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+            document.getElementById('analyzeRecordBtn').disabled = false;
+        }
+
+        function removeHealthFile() {
+            selectedHealthRecord = null;
+            document.getElementById('healthUploadPlaceholder').style.display = 'block';
+            document.getElementById('healthFileDisplay').style.display = 'none';
+            document.getElementById('healthRecordFile').value = '';
+            document.getElementById('analyzeRecordBtn').disabled = true;
+        }
+
+        async function uploadHealthRecord(event) {
+            event.preventDefault();
+            
+            if (!selectedHealthRecord) {
+                showAlert('Please select a health record file first.', 'error');
+                return;
+            }
+            
+            const resultDiv = document.getElementById("health-record-result");
+            const analyzeBtn = document.getElementById("analyzeRecordBtn");
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            
+            showLoading("Analyzing your health record...");
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', selectedHealthRecord);
+                
+                const response = await fetch("/upload_health_record", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="health-record-result">
+                            <h4><i class="fas fa-file-medical"></i> Health Record Analysis</h4>
+                            <div class="analysis-content">${formatAnalysisResult(result.analysis)}</div>
+                            <div class="result-footer">
+                                <small><i class="fas fa-clock"></i> Analysis completed at ${new Date(result.timestamp).toLocaleString()}</small>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error-result">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4>Analysis Failed</h4>
+                            <p>${result.reply}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error-result">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h4>Network Error</h4>
+                        <p>Failed to analyze health record. Please check your connection and try again.</p>
+                    </div>
+                `;
+                console.error("Health record analysis error:", error);
+            } finally {
+                hideLoading();
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<i class="fas fa-analytics"></i> Analyze Health Record';
+            }
+        }
+
+        // Risk assessment functions
+        function showRiskTab(riskType) {
+            document.querySelectorAll('.risk-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`[data-risk="${riskType}"]`).classList.add('active');
+            
+            document.querySelectorAll('.risk-form').forEach(form => form.classList.remove('active'));
+            document.getElementById(`${riskType}-risk`).classList.add('active');
+            
+            currentRiskType = riskType;
+        }
+
+        async function assessRisk(event, riskType) {
+            event.preventDefault();
+            
+            const resultDiv = document.getElementById("risk-assessment-result");
+            showLoading(`Calculating your ${riskType} risk...`);
+            
+            let formData = { type: riskType };
+            
+            if (riskType === 'diabetes') {
+                formData = {
+                    ...formData,
+                    age: parseInt(document.getElementById('diabetesAge').value),
+                    gender: document.getElementById('diabetesGender').value,
+                    bmi: parseFloat(document.getElementById('diabetesBMI').value),
+                    waist_circumference: parseInt(document.getElementById('waistCircumference').value) || 0,
+                    physical_activity: document.querySelector('input[name="physicalActivity"]:checked')?.value === 'true',
+                    daily_veggies_fruit: document.getElementById('dailyVeggies').checked,
+                    hypertension_med: document.getElementById('hypertensionMed').checked,
+                    high_blood_sugar_history: document.getElementById('highBloodSugar').checked,
+                    family_diabetes: document.getElementById('familyDiabetes').checked
+                };
+            } else if (riskType === 'heart') {
+                formData = {
+                    ...formData,
+                    age: parseInt(document.getElementById('heartAge').value),
+                    gender: document.getElementById('heartGender').value,
+                    total_cholesterol: parseInt(document.getElementById('totalCholesterol').value) || 0,
+                    hdl_cholesterol: parseInt(document.getElementById('hdlCholesterol').value) || 0,
+                    systolic_bp: parseInt(document.getElementById('systolicBP').value) || 0,
+                    smoker: document.getElementById('smoker').checked,
+                    diabetes: document.getElementById('heartDiabetes').checked,
+                    treated_hypertension: document.getElementById('treatedHypertension').checked
+                };
+            } else if (riskType === 'kidney') {
+                formData = {
+                    ...formData,
+                    age: parseInt(document.getElementById('kidneyAge').value),
+                    gender: document.getElementById('kidneyGender').value,
+                    bmi: parseFloat(document.getElementById('kidneyBMI').value),
+                    hypertension: document.getElementById('kidneyHypertension').checked,
+                    diabetes: document.getElementById('kidneyDiabetes').checked,
+                    smoker: document.getElementById('kidneySmoker').checked,
+                    anemia: document.getElementById('anemia').checked,
+                    proteinuria: document.getElementById('proteinuria').checked
+                };
+            }
+            
+            try {
+                const response = await fetch("/predict_risk", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    displayRiskResults(result);
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error-result">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4>Assessment Failed</h4>
+                            <p>${result.reply}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error-result">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h4>Network Error</h4>
+                        <p>Failed to assess risk. Please check your connection and try again.</p>
+                    </div>
+                `;
+                console.error("Risk assessment error:", error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displayRiskResults(result) {
+            const resultDiv = document.getElementById("risk-assessment-result");
+            const riskResult = result.risk_result;
+            const tips = result.lifestyle_tips;
+            
+            let riskClass = 'low';
+            if (riskResult.risk_level.toLowerCase().includes('high') || riskResult.risk_level.toLowerCase().includes('dangerous')) {
+                riskClass = 'high';
+            } else if (riskResult.risk_level.toLowerCase().includes('moderate') || riskResult.risk_level.toLowerCase().includes('elevated')) {
+                riskClass = 'moderate';
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="risk-assessment-results">
+                    <div class="risk-header ${riskClass}">
+                        <h4><i class="fas fa-heart-pulse"></i> ${result.risk_type.charAt(0).toUpperCase() + result.risk_type.slice(1)} Risk Assessment</h4>
+                        <p class="timestamp">Assessment completed at ${new Date(result.timestamp).toLocaleString()}</p>
+                    </div>
+                    
+                    <div class="risk-score">
+                        <div class="score-display">
+                            <div class="score-number">${riskResult.score}</div>
+                            <div class="score-label">Risk Score</div>
+                        </div>
+                        <div class="risk-level">
+                            <div class="level-text">${riskResult.risk_level} Risk</div>
+                            <div class="risk-bar">
+                                <div class="risk-fill ${riskClass}" style="width: ${Math.min(riskResult.score * 5, 100)}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lifestyle-tips">
+                        <h5><i class="fas fa-lightbulb"></i> Personalized Recommendations</h5>
+                        <div class="tips-content">${formatAnalysisResult(tips)}</div>
+                    </div>
+                    
+                    <div class="disclaimer">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Disclaimer:</strong> ${result.disclaimer}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Symptom analysis
+        async function analyzeSymptoms(event) {
+            event.preventDefault();
+            
+            const data = {
+                symptoms: document.getElementById("symptoms").value,
+                duration: document.getElementById("symptomDuration").value,
+                severity: document.getElementById("symptomSeverity").value,
+                age: document.getElementById("patientAge").value,
+                gender: document.getElementById("patientGender").value,
+                additional_info: document.getElementById("additionalInfo").value
+            };
+            
+            const resultDiv = document.getElementById("symptom-result");
+            showLoading("Analyzing your symptoms with AI...");
+            resultDiv.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Analyzing symptoms...</div>';
+            
+            try {
+                const response = await fetch("/analyze_symptoms", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="analysis-result">
+                            <h4><i class="fas fa-clipboard-check"></i> Symptom Analysis Results</h4>
+                            <div class="result-content">${formatAnalysisResult(result.reply)}</div>
+                            <div class="result-footer">
+                                <small><i class="fas fa-clock"></i> Analysis completed at ${new Date(result.timestamp).toLocaleString()}</small>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i> ${result.reply}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Network error. Please try again.</div>';
+                console.error("Symptom analysis error:", error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Nutrition plan generation
+        async function generatePlan(event) {
+            event.preventDefault();
+            
+            const data = {
+                age: document.getElementById("age").value,
+                weight: document.getElementById("weight").value,
+                height: document.getElementById("height").value,
+                goal: document.getElementById("goal").value,
+                duration: document.getElementById("duration").value,
+                activity_level: document.getElementById("activityLevel").value,
+                dietary_restrictions: document.getElementById("dietaryRestrictions").value,
+                medical_conditions: document.getElementById("medicalConditions").value,
+                food_preferences: document.getElementById("foodPreferences").value
+            };
+            
+            const resultDiv = document.getElementById("nutrition-result");
+            showLoading("Creating your personalized nutrition plan...");
+            resultDiv.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Creating your personalized nutrition plan...</div>';
+            
+            try {
+                const response = await fetch("/nutrition", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="nutrition-result">
+                            <h4><i class="fas fa-utensils"></i> Your Personalized Nutrition Plan</h4>
+                            <div class="plan-content">${formatAnalysisResult(result.reply)}</div>
+                            <div class="result-footer">
+                                <small><i class="fas fa-clock"></i> Plan generated at ${new Date(result.timestamp).toLocaleString()}</small>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i> ${result.reply}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Network error. Please try again.</div>';
+                console.error("Nutrition plan error:", error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Drug interaction checking
+        async function checkDrugInteractions(event) {
+            event.preventDefault();
+            
+            const data = {
+                medications: document.getElementById("medications").value,
+                allergies: document.getElementById("drugAllergies").value
+            };
+            
+            const resultDiv = document.getElementById("drug-result");
+            showLoading("Checking drug interactions...");
+            resultDiv.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Checking drug interactions...</div>';
+            
+            try {
+                const response = await fetch("/drug_interaction", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="drug-result">
+                            <h4><i class="fas fa-pills"></i> Drug Interaction Analysis</h4>
+                            <div class="interaction-content">${formatAnalysisResult(result.reply)}</div>
+                            <div class="result-footer">
+                                <small><i class="fas fa-clock"></i> Analysis completed at ${new Date(result.timestamp).toLocaleString()}</small>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i> ${result.reply}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Network error. Please try again.</div>';
+                console.error("Drug interaction error:", error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Chat functions
+        async function initializeSession() {
+            try {
+                const response = await fetch("/start_session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                console.log("Session initialized:", data);
+            } catch (error) {
+                console.error("Failed to initialize session:", error);
+            }
+        }
+
+        function showSection(section) {
+            Object.values(sections).forEach(sec => {
+                if (sec) sec.style.display = 'none';
+            });
+            
+            if (sections[section]) {
+                sections[section].style.display = section === 'chat' ? 'flex' : 'block';
+            }
+
+            const titles = {
+                'home': 'Smart AI - Advanced Medical Assistant',
+                'chat': 'AI Medical Consultation',
+                'symptoms': 'Symptom Analyzer',
+                'medical-image': 'Medical Image Analysis (X-Ray, MRI, CT)',
+                'health-records': 'Health Record Analyzer',
+                'risk-assessment': 'Health Risk Assessment',
+                'nutrition': 'Nutrition Planner',
+                'drugs': 'Drug Interaction Checker',
+                'contact': 'Contact Developer'
+            };
+            pageTitle.textContent = titles[section] || 'Smart AI';
+
+            document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+            const activeItem = document.querySelector(`.nav-item[onclick="showSection('${section}')"]`);
+            if (activeItem) activeItem.classList.add("active");
+
+            document.querySelector('.nav-items')?.classList.remove('mobile-open');
+
+            if (section === 'chat') {
+                sessionInfo.style.display = 'block';
+                if (chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+                if (!chatWindow?.querySelector(".bubble")) {
+                    addBubble("👋 Hello! I'm Smart AI, your AI medical assistant with advanced diagnostic capabilities including medical image analysis (X-ray, MRI, CT scans), health record interpretation, and personalized risk assessment. How can I help you today?", "bot");
+                }
+                updateChatStats();
+            } else if (section === 'medical-image') {
+                sessionInfo.style.display = 'none';
+                checkGeminiModelStatus();
+            } else {
+                sessionInfo.style.display = 'none';
+            }
+        }
+
+        function addBubble(text, who = "user", metadata = {}) {
+            const wrap = document.createElement("div");
+            wrap.className = `bubble ${who}`;
+            
+            const textDiv = document.createElement("div");
+            textDiv.className = "text";
+            textDiv.textContent = text;
+            
+            const iconDiv = document.createElement("div");
+            iconDiv.className = "icon";
+            iconDiv.innerHTML = who === "bot" ? '<i class="fas fa-user-md"></i>' : '<i class="fas fa-user"></i>';
+            
+            wrap.appendChild(iconDiv);
+            wrap.appendChild(textDiv);
+            
+            if (metadata.timestamp) {
+                const timeDiv = document.createElement("div");
+                timeDiv.className = "message-time";
+                timeDiv.textContent = new Date(metadata.timestamp).toLocaleTimeString();
+                wrap.appendChild(timeDiv);
+            }
+            
+            chatWindow.appendChild(wrap);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            
+            return wrap;
+        }
+
+        async function submitMessage() {
+            const message = msgInput.value.trim();
+            if (!message) return;
+            
+            addBubble(message, "user");
+            msgInput.value = "";
+            msgInput.style.height = "auto";
+            
+            const typing = addBubble("Analyzing your message...", "bot");
+            typing.classList.add("typing");
+            
+            try {
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        message: message,
+                        mode: chatMode 
+                    })
+                });
+                
+                const data = await response.json();
+                typing.remove();
+                
+                if (data.ok) {
+                    addBubble(data.reply, "bot", data.metadata || {});
+                    updateChatStats();
+                } else {
+                    addBubble("Sorry, I encountered an error. Please try again.", "bot");
+                }
+            } catch (error) {
+                typing.remove();
+                addBubble("Network error. Please check your connection and try again.", "bot");
+                console.error("Chat error:", error);
+            }
+        }
+
+        function insertSuggestion(text) {
+            msgInput.value = text;
+            msgInput.focus();
+        }
+
+        async function exportChat() {
+            try {
+                const response = await fetch("/export_chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    const blob = new Blob([JSON.stringify(data.chat_data, null, 2)], {
+                        type: 'application/json'
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Smart-ai-chat-${new Date().toISOString().split('T')[0]}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }
+            } catch (error) {
+                console.error("Export error:", error);
+                showAlert("Failed to export chat. Please try again.", "error");
+            }
+        }
+
+        async function showChatStats() {
+            try {
+                const response = await fetch("/chat_statistics");
+                const data = await response.json();
+                
+                if (data.ok && data.stats) {
+                    showAlert(`Chat Statistics:\n• Total Messages: ${data.stats.total_messages}\n• Your Messages: ${data.stats.user_messages}\n• AI Responses: ${data.stats.bot_messages}\n• Topics Discussed: ${data.stats.topics_discussed}\n• Session: ${data.stats.session_duration}`, "info");
+                }
+            } catch (error) {
+                console.error("Stats error:", error);
+            }
+        }
+
+        async function updateChatStats() {
+            try {
+                const response = await fetch("/chat_statistics");
+                const data = await response.json();
+                
+                if (data.ok && data.stats) {
+                    sessionStats.textContent = `Messages: ${data.stats.total_messages} | Mode: ${chatMode}`;
+                }
+            } catch (error) {
+                console.error("Update stats error:", error);
+            }
+        }
+
+        async function clearChat() {
+            if (confirm("Are you sure you want to clear the chat history?")) {
+                try {
+                    await fetch("/clear_history", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" }
+                    });
+                    
+                    chatWindow.innerHTML = "";
+                    addBubble("👋 Hello! I'm Smart AI, your AI medical assistant with advanced diagnostic capabilities. How can I help you today?", "bot");
+                    updateChatStats();
+                } catch (error) {
+                    console.error("Clear chat error:", error);
+                }
+            }
+        }
+
+        // Utility functions
+        function formatAnalysisResult(text) {
+            return text.replace(/\n/g, '<br>').replace(/\*\s/g, '<br>• ');
+        }
+
+        function showLoading(message) {
+            document.getElementById('loadingMessage').textContent = message;
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="alert-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                if (alertDiv.parentElement) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        function toggleMobileMenu() {
+            const navItems = document.querySelector('.nav-items');
+            navItems.classList.toggle('mobile-open');
+        }
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            localStorage.setItem('theme', currentTheme);
+        }
+    </script>
+</body>
+</html>

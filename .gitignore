@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Environment Variables
+.env
+.env.local
+.flaskenv
+
+# Uploaded files
+uploads/
+temp/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# Model files (not needed for Gemini API)
+models/
+*.onnx
+*.h5
+*.pkl
+
+# Static uploads
+static/uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.pdf
+*.csv
+
+# Secret keys
+*.key
+*.pem
+secret_key.txt

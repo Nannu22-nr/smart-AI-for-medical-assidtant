@@ -1,8 +1,9 @@
 flask
 flask-cors
 python-dotenv
-google-generativeai
+google-genai
 pillow
 pandas
 pypdf
 werkzeug
+gunicorn
